@@ -67,10 +67,14 @@ const ImageForm = ({}) => {
   return (
     <>
       <div className="px-4 mt-10 lg:px-8">
-        <Heading
-          title="Generate Image"
-          description="Provide a input to generate image. For best result try to be as descriptive as possible."
-        />
+        <div className="w-full">
+          <Heading
+            title="Generate Image"
+            description="Provide a input to generate image. For best result try to be as descriptive as possible."
+            buttonTitle="Check past generations"
+          />
+        </div>
+
         <div className="flex flex-col md:flex-row">
           <Form {...form}>
             <form
