@@ -1,13 +1,18 @@
 "use client";
 
-import { File, Home, Image, Plus, Settings } from "lucide-react";
+import {
+  File,
+  Home,
+  Image,
+  MessageSquarePlusIcon,
+  Settings,
+} from "lucide-react";
 import { useParams, usePathname, useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { FreeCounter } from "./free-counter";
 
 export const Sidebar = ({ apiLimitCount = 0 }: { apiLimitCount: number }) => {
-  //   const proModal = useProModal();
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
@@ -43,6 +48,12 @@ export const Sidebar = ({ apiLimitCount = 0 }: { apiLimitCount: number }) => {
       icon: File,
       href: `/${params.clientId}/short-summary`,
       label: "Short Summary GPT-4",
+      pro: true,
+    },
+    {
+      icon: MessageSquarePlusIcon,
+      href: `/${params.clientId}/chat`,
+      label: "Chat",
       pro: true,
     },
     {
