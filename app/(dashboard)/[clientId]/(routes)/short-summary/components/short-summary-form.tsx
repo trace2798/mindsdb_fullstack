@@ -66,6 +66,7 @@ const ShortSummaryForm: FC<pageProps> = ({}) => {
         <Heading
           title="Summarize (Short)"
           description="Provide text to get a summary within 200 characters."
+          buttonTitle="Check Past Summaries"
         />
         <div className="flex flex-col md:flex-row">
           <Form {...form}>
