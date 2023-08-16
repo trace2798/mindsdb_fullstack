@@ -40,7 +40,9 @@ export default async function DashboardLayout({
         <div className="fixed inset-y-0 flex-col hidden h-full max-w-[110px] mt-16 w-fill md:flex">
           <Sidebar apiLimitCount={apiLimitCount} />
         </div>
-        <main className="h-full pt-16 md:pl-32">{children}</main>
+        <main className="h-full pt-16 mx-[2vw] md:pl-32 md:mr-[4vw]">
+          {children}
+        </main>
       </div>
     </>
   );

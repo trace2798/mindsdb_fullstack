@@ -45,7 +45,7 @@ export const Sidebar = ({ apiLimitCount = 0 }: { apiLimitCount: number }) => {
     {
       icon: File,
       href: `/${params.clientId}/short-summary`,
-      label: "Short Summary",
+      label: "Short Summary GPT-4",
       pro: true,
     },
     {
