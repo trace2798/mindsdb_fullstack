@@ -1,11 +1,39 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model User {
+  id          String      @id @default(uuid())
+  userId      String      @unique
+  name        String
+  count       Int         @default(0)
+  savedImages SaveImage[] @relation("UserToSaveImage")
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model SaveImage {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation("UserToSaveImage", fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  text      String
+  image_url String   @db.LongText
+
+  @@index([userId])
+}
+
+model Image {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  text      String
+  image_url String   @db.LongText
 }

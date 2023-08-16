@@ -19,7 +19,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useStoreModal } from "@/hooks/use-store-modal";
+import { useStoreModal } from "@/hooks/use-user-modal";
 import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
