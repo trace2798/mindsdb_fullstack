@@ -100,10 +100,10 @@ export const checkApiLimit = async () => {
   );
 
   if (daysSinceCreated >= 30) {
-    // Reset the count and update the createdAt date
+    // Reset the count and update the updatedAt date
     await prismadb.client.update({
       where: { userId: userId },
-      data: { count: 0, createdAt: new Date() },
+      data: { count: 0, updatedAt: new Date() },
     });
     return true;
   } else if (userApiLimit.count < MAX_FREE_COUNTS) {
