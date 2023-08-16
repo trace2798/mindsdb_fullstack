@@ -20,6 +20,7 @@ export const Heading = ({ title, description, buttonTitle }: HeadingProps) => {
         </div>
         <Button
           className="mt-5 capitalize w-fit md:mt-0"
+          variant="ghost"
           onClick={() => router.push(`${pathname}/history`)}
         >
           {buttonTitle}
