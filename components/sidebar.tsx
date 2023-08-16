@@ -35,7 +35,7 @@ export const Sidebar = ({ apiLimitCount = 0 }: { apiLimitCount: number }) => {
     },
     {
       icon: File,
-      href: `/${params.clientId}/summarize`,
+      href: `/${params.clientId}/summary-comprehensive`,
       label: "Comprehensive Summary",
       pro: true,
     },

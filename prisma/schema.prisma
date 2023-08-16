@@ -9,14 +9,15 @@ datasource db {
 }
 
 model Client {
-  id             String         @id @default(uuid())
-  userId         String         @unique
-  name           String
-  count          Int            @default(0)
-  images         Image[]        @relation("ClientToImage")
-  shortSummaries ShortSummary[] @relation("ClientToShortSummary")
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
+  id              String          @id @default(uuid())
+  userId          String          @unique
+  name            String
+  count           Int             @default(0)
+  images          Image[]         @relation("ClientToImage")
+  shortSummaries  ShortSummary[]  @relation("ClientToShortSummary")
+  normalSummaries NormalSummary[] @relation("ClientToNormalSummary")
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
 }
 
 model Image {
@@ -35,6 +36,18 @@ model ShortSummary {
   id        String   @id @default(uuid())
   clientId  String
   client    Client   @relation("ClientToShortSummary", fields: [clientId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  text      String   @db.LongText
+  summary   String   @db.LongText
+
+  @@index([clientId])
+}
+
+model NormalSummary {
+  id        String   @id @default(uuid())
+  clientId  String
+  client    Client   @relation("ClientToNormalSummary", fields: [clientId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   text      String   @db.LongText
