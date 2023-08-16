@@ -6,7 +6,6 @@ interface ImagePage {}
 const ImagePage = async ({ params }: { params: { clientId: string } }) => {
   return (
     <>
-      <div>Image page</div>
       <ImageForm />
     </>
   );
