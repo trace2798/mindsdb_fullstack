@@ -42,7 +42,7 @@ export const UserModal = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
-      const response = await axios.post("/api/stores", values);
+      const response = await axios.post("/api/user", values);
       window.location.assign(`/${response.data.id}`);
     } catch (error) {
       //   toast.error('Something went wrong');
@@ -72,7 +72,7 @@ export const UserModal = () => {
                       <FormControl>
                         <Input
                           disabled={loading}
-                          placeholder="E-Commerce"
+                          placeholder="Your name"
                           {...field}
                         />
                       </FormControl>
