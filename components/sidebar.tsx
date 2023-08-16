@@ -53,7 +53,7 @@ export const Sidebar = ({ apiLimitCount = 0 }: { apiLimitCount: number }) => {
     {
       icon: MessageSquarePlusIcon,
       href: `/${params.clientId}/chat`,
-      label: "Chat",
+      label: "Ask",
       pro: true,
     },
     {

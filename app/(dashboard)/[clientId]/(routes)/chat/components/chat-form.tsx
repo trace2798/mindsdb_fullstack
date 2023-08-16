@@ -60,7 +60,7 @@ const ConversationForm = ({}) => {
       console.log(values);
       const response = responseBack.data;
       console.log(response);
-      setMessages((messages) => [responseBack.data, ...messages]);
+      setMessages((messages) => [...messages, responseBack.data]);
       form.reset();
     } catch (error: any) {
       console.log(error);
@@ -98,8 +98,8 @@ const ConversationForm = ({}) => {
   return (
     <div>
       <Heading
-        title="Conversation"
-        description="Our most advanced conversation model."
+        title="Ask"
+        description="Ask a question."
       />
       <div className="px-4 lg:px-8">
         <div>

@@ -1,4 +1,4 @@
-"use client";
+
 
 import ConversationForm from "./components/chat-form";
 

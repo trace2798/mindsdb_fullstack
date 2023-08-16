@@ -37,7 +37,7 @@ export async function POST(
     console.log("3");
 
     const model = await MindsDB.Models.getModel(
-      "conversation_gpt_4",
+      "help_bot",
       "conversation"
     );
     const queryOptions = {
