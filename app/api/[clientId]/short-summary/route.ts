@@ -1,0 +1,45 @@
+import { NextResponse } from "next/server";
+import MindsDB from "mindsdb-js-sdk";
+
+import { auth } from "@clerk/nextjs";
+import { checkApiLimit, incrementApiLimit } from "@/lib/api-limit";
+import connect from "@/lib/connect-mind";
+
+export async function POST(
+  req: Request,
+  { params }: { params: { clientId: string } }
+) {
+  console.log("1");
+  try {
+    const { userId } = auth();
+    console.log("2");
+    const body = await req.json();
+    console.log(body, "BODY BODY");
+    const { text } = body;
+    if (!userId) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+    const freeTrial = await checkApiLimit();
+    if (!freeTrial) {
+      return new NextResponse("You have finished your limit.", { status: 403 });
+    }
+    await connect();
+    console.log("3");
+
+    const model = await MindsDB.Models.getModel(
+      "summarize_gpt_4_short",
+      "summarize"
+    );
+    const queryOptions = {
+      where: [`from_user" = "Trace"`] && [`text = "${text}"`],
+    };
+    console.log(queryOptions);
+    const response = await model?.query(queryOptions);
+    console.log(response);
+    await incrementApiLimit();
+    return NextResponse.json(response?.data);
+  } catch (error) {
+    console.log("[SUMMARIZATION_ERROR]", error);
+    return new NextResponse("Internal Error", { status: 500 });
+  }
+}
