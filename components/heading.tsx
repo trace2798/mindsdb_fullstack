@@ -6,9 +6,15 @@ interface HeadingProps {
   title: string;
   description: string;
   buttonTitle?: string;
+  tokenCountInfo?: string;
 }
 
-export const Heading = ({ title, description, buttonTitle }: HeadingProps) => {
+export const Heading = ({
+  title,
+  description,
+  buttonTitle,
+  tokenCountInfo,
+}: HeadingProps) => {
   const router = useRouter();
   const pathname = usePathname();
   return (
@@ -17,6 +23,7 @@ export const Heading = ({ title, description, buttonTitle }: HeadingProps) => {
         <div>
           <h2 className="text-3xl font-bold text-primary">{title}</h2>
           <p className="text-sm text-muted-foreground">{description}</p>
+          <p className="text-sm text-muted-foreground">{tokenCountInfo}</p>
         </div>
         <Button
           className="mt-5 capitalize w-fit md:mt-0"

@@ -66,6 +66,7 @@ const ShortSummaryForm: FC<pageProps> = ({}) => {
           title="Summarize (Short)"
           description="Provide text to get a summary within 500 characters."
           buttonTitle="Check Past Summaries"
+          tokenCountInfo="Each request is counted as 4 token"
         />
         <div className="flex flex-col md:flex-row">
           <Form {...form}>
