@@ -9,7 +9,7 @@ export default async function DashboardLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: { storeId: string };
+  params: { clientId: string };
 }) {
   const { userId } = auth();
 
@@ -17,15 +17,15 @@ export default async function DashboardLayout({
     redirect("/sign-in");
   }
 
-  const store = await prismadb.user.findFirst({
+  const user = await prismadb.client.findFirst({
     where: {
-      id: params.storeId,
+      id: params.clientId,
       userId,
     },
   });
 
-  if (!store) {
-    redirect("/create-user");
+  if (!user) {
+    redirect("/create-client");
   }
 
   return (

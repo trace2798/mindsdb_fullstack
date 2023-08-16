@@ -12,7 +12,7 @@ interface ResponseData {
 
 export async function POST(
   req: Request,
-  { params }: { params: { userID: string } }
+  { params }: { params: { clientId: string } }
 ) {
   try {
     const { userId } = auth();
@@ -21,7 +21,7 @@ export async function POST(
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-    if (!params.userID) {
+    if (!params.clientId) {
       return new NextResponse("User id is required", { status: 400 });
     }
     await connect();
@@ -35,9 +35,9 @@ export async function POST(
     const response = await model?.query(queryOptions);
     console.log(response);
     const data = response?.data as ResponseData;
- 
-    await prismadb.saveImage.create({
-      data: { userId: params.userID, text: text, image_url: data.img_url },
+
+    await prismadb.image.create({
+      data: { clientId: params.clientId, text: text, image_url: data.img_url },
     });
     return NextResponse.json(response?.data);
   } catch (error) {

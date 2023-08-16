@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { UserModal } from "./modal/user-modal";
+import { ClientModal } from "./modal/client-modal";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -16,7 +16,7 @@ export const ModalProvider = () => {
 
   return (
     <>
-      <UserModal />
+      <ClientModal />
     </>
   );
 };

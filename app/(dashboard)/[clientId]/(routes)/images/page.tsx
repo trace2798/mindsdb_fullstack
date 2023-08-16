@@ -3,7 +3,7 @@ import ImageForm from "./components/image-form";
 
 interface ImagePage {}
 
-const ImagePage = async ({ params }: { params: { billboardId: string } }) => {
+const ImagePage = async ({ params }: { params: { clientId: string } }) => {
   return (
     <>
       <div>Image page</div>

@@ -33,7 +33,7 @@ type MindsDBResponse = {
   img_url: string;
 };
 
-const ImageForm: FC<pageProps> = ({}) => {
+const ImageForm = ({}) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -49,7 +49,10 @@ const ImageForm: FC<pageProps> = ({}) => {
     try {
       //   setPhotos([]);
       console.log("Inside submit");
-      const response = await axios.post(`/api/${params.userId}/image`, values);
+      const response = await axios.post(
+        `/api/${params.clientId}/image`,
+        values
+      );
       console.log(values);
       const img_url = response.data;
       console.log(img_url);

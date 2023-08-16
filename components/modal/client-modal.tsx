@@ -19,15 +19,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useUserModal } from "@/hooks/use-user-modal";
+import { useClientModal } from "@/hooks/use-client-modal";
 import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
   name: z.string().min(1),
 });
 
-export const UserModal = () => {
-  const userModal = useUserModal();
+export const ClientModal = () => {
+  const clientModal = useClientModal();
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
@@ -42,7 +42,7 @@ export const UserModal = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
-      const response = await axios.post("/api/user", values);
+      const response = await axios.post("/api/client", values);
       window.location.assign(`/${response.data.id}`);
     } catch (error) {
       //   toast.error('Something went wrong');
@@ -55,8 +55,8 @@ export const UserModal = () => {
     <Modal
       title="What is your name?"
       description="Add your name to get started."
-      isOpen={userModal.isOpen}
-      onClose={userModal.onClose}
+      isOpen={clientModal.isOpen}
+      onClose={clientModal.onClose}
     >
       <div>
         <div className="py-2 pb-4 space-y-4">
@@ -84,7 +84,7 @@ export const UserModal = () => {
                   <Button
                     disabled={loading}
                     variant="outline"
-                    onClick={userModal.onClose}
+                    onClick={clientModal.onClose}
                   >
                     Cancel
                   </Button>

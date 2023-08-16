@@ -3,11 +3,11 @@
 import { useEffect } from "react";
 import { useParams } from "next/navigation";
 
-import { useUserModal } from "@/hooks/use-user-modal";
+import { useClientModal } from "@/hooks/use-client-modal";
 
 const SetupPage = () => {
-  const onOpen = useUserModal((state) => state.onOpen);
-  const isOpen = useUserModal((state) => state.isOpen);
+  const onOpen = useClientModal((state) => state.onOpen);
+  const isOpen = useClientModal((state) => state.isOpen);
 
   useEffect(() => {
     if (!isOpen) {

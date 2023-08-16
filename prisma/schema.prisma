@@ -8,32 +8,32 @@ datasource db {
   relationMode = "prisma"
 }
 
-model User {
-  id          String      @id @default(uuid())
-  userId      String      @unique
-  name        String
-  count       Int         @default(0)
-  savedImages SaveImage[] @relation("UserToSaveImage")
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-}
-
-model SaveImage {
+model Client {
   id        String   @id @default(uuid())
-  userId    String
-  user      User     @relation("UserToSaveImage", fields: [userId], references: [id])
+  userId    String   @unique
+  name      String
+  count     Int      @default(0)
+  images    Image[]  @relation("ClientToImage")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  text      String
-  image_url String   @db.LongText
-
-  @@index([userId])
 }
 
 model Image {
   id        String   @id @default(uuid())
+  clientId  String
+  client    Client   @relation("ClientToImage", fields: [clientId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   text      String
   image_url String   @db.LongText
+
+  @@index([clientId])
 }
+
+// model Image {
+//   id        String   @id @default(uuid())
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   text      String
+//   image_url String   @db.LongText
+// }
