@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -40,7 +40,6 @@ const ShortSummaryForm: FC<pageProps> = ({}) => {
   });
   const [messages, setMessages] = useState<MindsDBResponse[]>([]);
   const isLoading = form.formState.isSubmitting;
-
   const params = useParams();
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {

@@ -5,9 +5,9 @@ import { useParams, usePathname, useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { FreeCounter } from "./free-counter";
-// import { useProModal } from "@/hooks/use-pro-modal";
 
-interface SidebarProps {}
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 
 export const Sidebar = ({ apiLimitCount = 0 }: { apiLimitCount: number }) => {
   //   const proModal = useProModal();

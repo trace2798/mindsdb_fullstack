@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import MindsDB from "mindsdb-js-sdk";
 
 import { auth } from "@clerk/nextjs";
-import { checkApiLimit, incrementApiLimit } from "@/lib/api-limit";
+import { checkApiLimit, incrementApiLimitShortSummary } from "@/lib/api-limit";
 import connect from "@/lib/connect-mind";
 import prismadb from "@/lib/prismadb";
 
@@ -45,7 +45,7 @@ export async function POST(
     console.log(queryOptions);
     const response = await model?.query(queryOptions);
     console.log(response);
-    await incrementApiLimit();
+    await incrementApiLimitShortSummary();
     const data = response?.data as ResponseData;
     await prismadb.shortSummary.create({
       data: { clientId: params.clientId, text: text, summary: data.response },
