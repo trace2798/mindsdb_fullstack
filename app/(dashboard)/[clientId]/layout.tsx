@@ -1,11 +1,10 @@
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs";
-
-// import Navbar from "@/components/navbar";
 import prismadb from "@/lib/prismadb";
 import { Navbar } from "@/components/navbar";
 import { Sidebar } from "@/components/sidebar";
 import { getApiLimitCount } from "@/lib/api-limit";
+import { MobileSidebar } from "@/components/mobile-sidebar";
 
 export default async function DashboardLayout({
   children,
@@ -35,10 +34,12 @@ export default async function DashboardLayout({
     <>
       <div className="h-full">
         <Navbar />
+        <div className="fixed inset-y-0 flex-col flex h-full max-w-[110px] mt-16 w-fill md:hidden">
+          <MobileSidebar apiLimitCount={apiLimitCount} />
+        </div>
         <div className="fixed inset-y-0 flex-col hidden h-full max-w-[110px] mt-16 w-fill md:flex">
           <Sidebar apiLimitCount={apiLimitCount} />
         </div>
-        {/* {children} */}
         <main className="h-full pt-16 md:pl-32">{children}</main>
       </div>
     </>

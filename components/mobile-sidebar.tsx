@@ -11,7 +11,9 @@ export const MobileSidebar = ({
   return (
     <Sheet>
       <SheetTrigger className="pr-4 md:hidden">
-        <Menu />
+        <div className="flex">
+          <Menu className="mr-1" /> Menu
+        </div>
       </SheetTrigger>
       <SheetContent side="left" className="w-32 p-0 pt-10 bg-secondary">
         <Sidebar apiLimitCount={apiLimitCount} />
