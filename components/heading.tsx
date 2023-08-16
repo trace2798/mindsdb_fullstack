@@ -18,7 +18,10 @@ export const Heading = ({ title, description, buttonTitle }: HeadingProps) => {
           <h2 className="text-3xl font-bold text-primary">{title}</h2>
           <p className="text-sm text-muted-foreground">{description}</p>
         </div>
-        <Button className="mt-5 w-fit md:mt-0" onClick={() => router.push(`${pathname}/history`)}>
+        <Button
+          className="mt-5 capitalize w-fit md:mt-0"
+          onClick={() => router.push(`${pathname}/history`)}
+        >
           {buttonTitle}
         </Button>
       </div>
