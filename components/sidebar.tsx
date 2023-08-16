@@ -47,7 +47,7 @@ export const Sidebar = ({ apiLimitCount = 0 }: { apiLimitCount: number }) => {
     },
     {
       icon: Settings,
-      href: "/settings",
+      href: `/${params.clientId}/settings`,
       label: "Settings",
       pro: false,
     },
