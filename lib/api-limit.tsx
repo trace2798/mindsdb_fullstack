@@ -40,6 +40,25 @@ export const incrementApiLimitAsk = async () => {
   }
 };
 
+export const incrementApiLimitAskTurbo = async () => {
+  const { userId } = auth();
+
+  if (!userId) {
+    return;
+  }
+
+  const userApiLimit = await prismadb.client.findUnique({
+    where: { userId: userId },
+  });
+
+  if (userApiLimit) {
+    await prismadb.client.update({
+      where: { userId: userId },
+      data: { count: userApiLimit.count + 2 },
+    });
+  }
+};
+
 export const incrementApiLimitShortSummary = async () => {
   const { userId } = auth();
 

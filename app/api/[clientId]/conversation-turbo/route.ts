@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import MindsDB from "mindsdb-js-sdk";
 
 import { auth } from "@clerk/nextjs";
-import { checkApiLimit, incrementApiLimitAsk } from "@/lib/api-limit";
+import { checkApiLimit, incrementApiLimitAskTurbo } from "@/lib/api-limit";
 import connect from "@/lib/connect-mind";
 import prismadb from "@/lib/prismadb";
 
@@ -36,18 +36,21 @@ export async function POST(
     await connect();
     console.log("3");
 
-    const model = await MindsDB.Models.getModel("help_bot_turbo", "conversation");
+    const model = await MindsDB.Models.getModel(
+      "help_bot_turbo",
+      "conversation"
+    );
     const queryOptions = {
       where: [`from_user" = ${userId}`] && [`text = "${text}"`],
     };
     console.log(queryOptions);
     const response = await model?.query(queryOptions);
     console.log(response);
-    // await incrementApiLimitAsk();
-    // const data = response?.data as ResponseData;
-    // await prismadb.ask.create({
-    //   data: { clientId: params.clientId, text: text, summary: data.response },
-    // });
+    await incrementApiLimitAskTurbo();
+    const data = response?.data as ResponseData;
+    await prismadb.askTurbo.create({
+      data: { clientId: params.clientId, text: text, summary: data.response },
+    });
     return NextResponse.json(response?.data);
   } catch (error) {
     console.log("[CONVERSATION_ERROR]", error);
