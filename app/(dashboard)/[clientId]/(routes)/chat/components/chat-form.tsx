@@ -22,6 +22,15 @@ import { Empty } from "@/components/ui/empty";
 // import { useProModal } from "@/hooks/use-pro-modal";
 
 import { formSchema } from "../constants";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 
 type MindsDBResponse = {
   text: string;
@@ -41,34 +50,50 @@ const ConversationForm = ({}) => {
   });
 
   const isLoading = form.formState.isSubmitting;
-
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: MindsDBResponse = {
-        text: values.text,
-        response: values.text,
-      };
-      const newMessages = [...messages, userMessage];
-
-      const response = await axios.post(
+      console.log("Inside submit");
+      const responseBack = await axios.post(
         `/api/${params.clientId}/conversation`,
-        {
-          messages: newMessages,
-        }
+        values
       );
-      setMessages((current) => [...current, userMessage, response.data]);
-
+      console.log(values);
+      const response = responseBack.data;
+      console.log(response);
+      setMessages((messages) => [responseBack.data, ...messages]);
       form.reset();
     } catch (error: any) {
-      if (error?.response?.status === 403) {
-        // proModal.onOpen();
-      } else {
-        // toast.error("Something went wrong.");
-      }
-    } finally {
-      router.refresh();
+      console.log(error);
     }
   };
+
+  //   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  //     try {
+  //       const userMessage: MindsDBResponse = {
+  //         text: values.text,
+  //         response: values.text,
+  //       };
+  //       const newMessages = [...messages, userMessage];
+
+  //       const responseBack = await axios.post(
+  //         `/api/${params.clientId}/conversation`,
+  //         {
+  //           messages: newMessages,
+  //         }
+  //       );
+  //       const response = responseBack.data;
+  //       setMessages((current) => [...current, userMessage, response.data]);
+
+  //     } catch (error: any) {
+  //       if (error?.response?.status === 403) {
+  //         // proModal.onOpen();
+  //       } else {
+  //         // toast.error("Something went wrong.");
+  //       }
+  //     } finally {
+  //       router.refresh();
+  //     }
+  //   };
 
   return (
     <div>
@@ -120,17 +145,26 @@ const ConversationForm = ({}) => {
           )}
           <div className="flex flex-col-reverse gap-y-4">
             {messages.map((message, index) => (
-              <div
-                key={index}
-                className={cn(
-                  "p-8 w-full flex items-start gap-x-8 rounded-lg",
-                  message.response === "user"
-                    ? "bg-white border border-black/10"
-                    : "bg-muted"
-                )}
-              >
-                {message.response === "user" ? <UserAvatar /> : <BotAvatar />}
-                <p className="text-sm">{message.response}</p>
+              <div key={index} className="flex flex-row">
+                <Card className="overflow-hidden rounded-lg ">
+                  <CardHeader>
+                    <CardTitle>Question</CardTitle>
+                    <CardDescription className="normal-case">
+                      {message.text}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="">
+                    <Label className="text-2xl font-semibold leading-none tracking-tight">
+                      Response
+                    </Label>
+                    <div className="relative min-w-[290px] md:w-fit mt-2">
+                      <h1 className="text-zinc-600 dark:text-zinc-300">
+                        {message.response}
+                      </h1>
+                    </div>
+                  </CardContent>
+                  <CardFooter className="p-2"></CardFooter>
+                </Card>
               </div>
             ))}
           </div>
