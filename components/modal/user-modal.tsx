@@ -19,15 +19,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useStoreModal } from "@/hooks/use-user-modal";
+import { useUserModal } from "@/hooks/use-user-modal";
 import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
   name: z.string().min(1),
 });
 
-export const StoreModal = () => {
-  const storeModal = useStoreModal();
+export const UserModal = () => {
+  const userModal = useUserModal();
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
@@ -53,10 +53,10 @@ export const StoreModal = () => {
 
   return (
     <Modal
-      title="Create store"
-      description="Add a new store to manage products and categories."
-      isOpen={storeModal.isOpen}
-      onClose={storeModal.onClose}
+      title="What is your name?"
+      description="Add your name to get started."
+      isOpen={userModal.isOpen}
+      onClose={userModal.onClose}
     >
       <div>
         <div className="py-2 pb-4 space-y-4">
@@ -84,7 +84,7 @@ export const StoreModal = () => {
                   <Button
                     disabled={loading}
                     variant="outline"
-                    onClick={storeModal.onClose}
+                    onClick={userModal.onClose}
                   >
                     Cancel
                   </Button>
