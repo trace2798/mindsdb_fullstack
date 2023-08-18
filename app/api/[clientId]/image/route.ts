@@ -10,8 +10,6 @@ interface ResponseData {
   text: string;
 }
 
-export const runtime = 'edge'
-
 export async function POST(
   req: Request,
   { params }: { params: { clientId: string } }
