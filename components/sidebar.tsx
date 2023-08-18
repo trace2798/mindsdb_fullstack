@@ -62,12 +62,12 @@ export const Sidebar = ({ apiLimitCount = 0 }: { apiLimitCount: number }) => {
       label: "Ask Turbo",
       pro: true,
     },
-    {
-      icon: Settings,
-      href: `/${params.clientId}/settings`,
-      label: "Settings",
-      pro: false,
-    },
+    // {
+    //   icon: Settings,
+    //   href: `/${params.clientId}/settings`,
+    //   label: "Settings",
+    //   pro: false,
+    // },
   ];
 
   return (

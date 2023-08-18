@@ -1,13 +1,57 @@
-import { FC } from "react";
+import { getNormalSummaryCount } from "@/actions/get-comsum-count";
+import { getImageCount } from "@/actions/get-image-count";
+import { getShortSummaryCount } from "@/actions/get-short-summary-count";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Image } from "lucide-react";
 
-interface pageProps {}
+interface DashboardPageProps {
+  params: {
+    clientId: string;
+  };
+}
 
-const page: FC<pageProps> = ({}) => {
+const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
+  const images = await getImageCount(params.clientId);
+  const normalSummary = await getNormalSummaryCount(params.clientId);
+  const shortSummary = await getShortSummaryCount(params.clientId);
   return (
     <>
-      <div>dashboard page</div>
+      <main className="grid gap-4 p-24 mt-8 overflow-hidden lg:grid-cols-2 xl:grid-cols-4">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+            <CardTitle className="text-sm font-medium">
+              Total Images Generated
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-center">{images}</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+            <CardTitle className="text-sm font-medium">
+              Total Comprehensive Summary Generated
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-center">
+              {normalSummary}
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+            <CardTitle className="text-sm font-medium">
+              Total Short Summary Generated
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-center">{shortSummary}</div>
+          </CardContent>
+        </Card>
+      </main>
     </>
   );
 };
 
-export default page;
+export default DashboardPage;
