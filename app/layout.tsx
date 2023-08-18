@@ -7,6 +7,8 @@ import { ModalProvider } from "@/components/modal-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
+export const runtime = 'edge'
+
 export const metadata: Metadata = {
   title: "MindsDB x Next.js Integration",
   description: "Created with the blessing from MindsDB",
