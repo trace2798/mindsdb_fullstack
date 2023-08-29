@@ -19,7 +19,7 @@ export async function POST(
     const { userId } = auth();
 
     const body = await req.json();
-    console.log(body, "BODY BODY");
+
     const { text } = body;
 
     if (!userId) {
@@ -34,15 +34,14 @@ export async function POST(
       return new NextResponse("You have finished your limit.", { status: 403 });
     }
     await connect();
-    console.log("3");
 
     const model = await MindsDB.Models.getModel("help_bot", "conversation");
     const queryOptions = {
       where: [`from_user" = ${userId}`] && [`text = "${text}"`],
     };
-    console.log(queryOptions);
+
     const response = await model?.query(queryOptions);
-    console.log(response);
+
     await incrementApiLimitAsk();
     const data = response?.data as ResponseData;
     await prismadb.ask.create({
@@ -50,7 +49,7 @@ export async function POST(
     });
     return NextResponse.json(response?.data);
   } catch (error) {
-    console.log("[CONVERSATION_ERROR]", error);
+    // console.log("[CONVERSATION_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

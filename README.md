@@ -1,10 +1,10 @@
 ## MindsDB Next.js App Router Integration.
 
 ### What motivated me to select this project for submission?
+
 Prior to participating in the hackathon, I had no experience with MindDB. However, by developing this application, I was able to gain valuable knowledge in creating and managing databases and models using the cloud console, as well as integrating MindsDB with a framework using the “mindsdb-js-sdk”. This project provided me with an opportunity to expand my skill set and explore new technologies.
 
 ### This repo is for my submission for the MindsDB AI App Challenge which took place from July 1 - August 31, 2023
-
 
 ## Getting Started
 
@@ -14,7 +14,7 @@ Prior to participating in the hackathon, I had no experience with MindDB. Howeve
 
 **Node version 16.8 or later  
 **macOS, Windows (including WSL), and Linux are supported.
-**Accounts to get the .env values as mentioned below and in the .env.example
+\*\*Accounts to get the .env values as mentioned below and in the .env.example
 
 ### To directly clone the repo
 
@@ -43,29 +43,33 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
 # I have used Planetscale for DB
 DATABASE_URL=
 ```
-<b>Disclamer:</b> Recently, when I named my env file as .env.local I ran into some problems with prisma so if you face similar problem just name is as .env and do not forget to add it to your .gitignore. After adding .env to your gitignore and if the .env file is getting pushed with your commit then check this [link out]( https://stackoverflow.com/questions/74340379/gitignore-not-working-my-environment-variables-are-being-pushed-to-my-repo-whe)
+
+<b>Disclamer:</b> Recently, when I named my env file as .env.local I ran into some problems with prisma so if you face similar problem just name is as .env and do not forget to add it to your .gitignore. After adding .env to your gitignore and if the .env file is getting pushed with your commit then check this [link out](https://stackoverflow.com/questions/74340379/gitignore-not-working-my-environment-variables-are-being-pushed-to-my-repo-whe)
 
 ## For this application to work in your local environment, you will need the following:
 
 - MindsDB account
 - A database URL, for my application I am using PlanetScale
 - Clerk key for authentication.
-  
+
 You can check the .env.example for all the values required.
 
 ## After setting up the accounts and keys you will need to create Model and Projects in MindsDB's console.
 
 Here is an explanation of how to create a model and project to make the generate image route in the application work.
+
 - After creating the MindsDB account, go to their cloud console and run the following command:
+
 ```
 CREATE DATABASE images_generation;
 ```
-After the query has been successfully queried you will see the database on the right side of the screen.
 
+After the query has been successfully queried you will see the database on the right side of the screen.
 
 ![image](https://github.com/trace2798/mindsdb_fullstack/assets/113078518/8b78eb5d-8fd0-460c-aa55-35c469b2e7c4)
 
 - Now we will need to create the Model, in your console type the following and hit run:
+
 ```
 //here "image_generation" is the name of the database we created above and "dalle_real_natural" is the name of the model. This model uses Dalle-E from openai
  CREATE MODEL images_generation.dalle_real_natural
@@ -75,7 +79,9 @@ After the query has been successfully queried you will see the database on the r
     mode = 'image',
     prompt_template = '{{text}}, 8K | ultra realistic image |  natural lighting | natural colors with a bit of saturation';
 ```
+
 ### Verification that our model has been successfully created:
+
 On the right side of our, if you click on the database you created, you should see the model inside "models".
 
 ![image](https://github.com/trace2798/mindsdb_fullstack/assets/113078518/c3d7a5c4-efa5-4b8c-8371-e9fe6b4e8460)
@@ -85,14 +91,17 @@ On the right side of our, if you click on the database you created, you should s
 - For my submission, I am using Next.js 13.4.13 with app directory.
 - For the application to communicate with MindsDB, we will be using the "mindsdb-js-sdk"
 - If you cloned the repo, you will now need to add the value for the following in your .env file
+
 ```
 MINDSDB_EMAIL='YOUR_MINDSB_ACCOUNT_EMAIL'
 MINDSDB_PASSWORD='YOUR_MINDSB_ACCOUNT_PASSWORD'
 ```
+
 ### Understanding the code for the API to generate images
 
-- In this code first we check if the user is authenticated, then connect with MindsbDB with "await connect()" after successful connection we make the request to the model we created. 
+- In this code first we check if the user is authenticated, then connect with MindsbDB with "await connect()" after successful connection we make the request to the model we created.
 - The model I created is "dalle_real_natural" and the database is called "images_generation". If you used different names you have to use those name for the code to work.
+
 ```
 import { NextResponse } from "next/server";
 import MindsDB from "mindsdb-js-sdk";
@@ -128,7 +137,6 @@ export async function POST(
       where: [`text = "${text}"`],
     };
     const response = await model?.query(queryOptions);
-    console.log(response);
     const data = response?.data as ResponseData;
 
     await prismadb.image.create({
@@ -136,12 +144,12 @@ export async function POST(
     });
     return NextResponse.json(response?.data);
   } catch (error) {
-    console.log("[IMAGE_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
 
 ```
+
 - From the frontend, after a user submit's his or her request for image, the above API is called and an image is generated
 - Here is the code for await connect() which can be found inside lib --> connect-mind.ts
 
@@ -155,7 +163,7 @@ const connect = async () => {
       password: process.env.MINDSDB_PASSWORD!,
     });
 
-    return console.log("Connected to MindsDB");
+    return // console.log("Connected to MindsDB");
   } catch (error: any) {
     return error;
   }
@@ -163,6 +171,7 @@ const connect = async () => {
 
 export default connect;
 ```
+
 I have followed a similar pattern to create DATABASE and Models as explained above for the other routes in the application.
 
 Once you have all the values for .env you can start the app and continue experimenting.
@@ -179,12 +188,15 @@ npm run dev
 
 Running commands with npm `npm run [command]`
 
-| command         | description                              |
-| :-------------- | :--------------------------------------- |
-| `dev`           | Starts a development instance of the app |
-| `build`         | To build your application                |
-| `start`         | Starts a production  instance of the app |
+| command | description                              |
+| :------ | :--------------------------------------- |
+| `dev`   | Starts a development instance of the app |
+| `build` | To build your application                |
+| `start` | Starts a production instance of the app  |
 
- "postinstall": "prisma generate" is required if you want to deploy your site.
+"postinstall": "prisma generate" is required if you want to deploy your site.
 
-### Youtube Demo Link: [MindsDB Next.js Integration](https://www.youtube.com/watch?v=iXuKCdvHBLY)
+### Current Deployed Link: [MindsDB Next.js Integration](https://mindsdb-nextjs-integration.up.railway.app/)
+I am on the trial plan for Railway so this link might get not work later but during submission it is working. Since the link might not work I have added a youtube demo link below.
+
+### Youtube Demo Link: [MindsDB Next.js Integration](https://youtu.be/eBdy57ul2oQ)

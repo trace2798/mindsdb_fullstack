@@ -46,23 +46,20 @@ const ImageForm = ({}) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      //   setPhotos([]);
-      console.log("Inside submit");
       const response = await axios.post(
         `/api/${params.clientId}/image`,
         values
       );
-      console.log(values);
+
       const img_url = response.data;
-      console.log(img_url);
+
       setPhotos((photos) => [response.data, ...photos]);
       form.reset();
     } catch (error: any) {
-      console.log(error);
+      // console.log(error);
     }
   };
-  console.log(photos, "PHOTOS");
-  console.log(setPhotos, "SET PHOTOS");
+
   return (
     <>
       <div className="px-4 mt-10 lg:px-8">

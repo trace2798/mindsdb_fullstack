@@ -17,9 +17,7 @@ export async function POST(
 ) {
   try {
     const { userId } = auth();
-    console.log("2");
     const body = await req.json();
-    console.log(body, "BODY BODY");
     const { text } = body;
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -33,7 +31,6 @@ export async function POST(
       return new NextResponse("You have finished your limit.", { status: 403 });
     }
     await connect();
-    console.log("3");
 
     const model = await MindsDB.Models.getModel(
       "summarize_gpt_turbo",
@@ -42,9 +39,9 @@ export async function POST(
     const queryOptions = {
       where: [`from_user" = "Trace"`] && [`text = "${text}"`],
     };
-    console.log(queryOptions);
+
     const response = await model?.query(queryOptions);
-    console.log(response);
+
     await incrementApiLimitNormalSummary();
     const data = response?.data as ResponseData;
     await prismadb.normalSummary.create({
@@ -52,7 +49,7 @@ export async function POST(
     });
     return NextResponse.json(response?.data);
   } catch (error) {
-    console.log("[SUMMARIZATION_ERROR]", error);
+    // console.log("[SUMMARIZATION_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

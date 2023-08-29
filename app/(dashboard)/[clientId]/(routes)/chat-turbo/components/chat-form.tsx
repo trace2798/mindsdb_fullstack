@@ -52,18 +52,18 @@ const ConversationForm = ({}) => {
   const isLoading = form.formState.isSubmitting;
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      console.log("Inside submit");
+  
       const responseBack = await axios.post(
         `/api/${params.clientId}/conversation-turbo`,
         values
       );
-      console.log(values);
+
       const response = responseBack.data;
-      console.log(response);
+
       setMessages((messages) => [...messages, responseBack.data]);
       form.reset();
     } catch (error: any) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

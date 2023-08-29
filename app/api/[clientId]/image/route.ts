@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import MindsDB from "mindsdb-js-sdk";
 import connect from "@/lib/connect-mind";
-// import { saveImages } from "@/lib/save-image";
 import { auth } from "@clerk/nextjs";
 import prismadb from "@/lib/prismadb";
 
@@ -33,7 +32,6 @@ export async function POST(
       where: [`text = "${text}"`],
     };
     const response = await model?.query(queryOptions);
-    console.log(response);
     const data = response?.data as ResponseData;
 
     await prismadb.image.create({
@@ -41,7 +39,7 @@ export async function POST(
     });
     return NextResponse.json(response?.data);
   } catch (error) {
-    console.log("[IMAGE_ERROR]", error);
+    // console.log("[IMAGE_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

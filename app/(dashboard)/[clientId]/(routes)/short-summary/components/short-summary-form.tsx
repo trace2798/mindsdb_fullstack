@@ -43,22 +43,21 @@ const ShortSummaryForm: FC<pageProps> = ({}) => {
   const params = useParams();
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      console.log("Inside submit");
+   
       const responseBack = await axios.post(
         `/api/${params.clientId}/short-summary`,
         values
       );
-      console.log(values);
+
       const response = responseBack.data;
-      console.log(response);
+
       setMessages((messages) => [responseBack.data, ...messages]);
       form.reset();
     } catch (error: any) {
-      console.log(error);
+      // console.log(error);
     }
   };
-  console.log(messages, "message");
-  console.log(setMessages, "set message");
+
   return (
     <>
       <div className="px-4 mt-10 lg:px-8">
