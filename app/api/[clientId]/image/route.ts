@@ -3,6 +3,7 @@ import MindsDB from "mindsdb-js-sdk";
 import connect from "@/lib/connect-mind";
 import { auth } from "@clerk/nextjs";
 import prismadb from "@/lib/prismadb";
+import { incrementApiLimitImage } from "@/lib/api-limit";
 
 interface ResponseData {
   img_url: string;
@@ -33,7 +34,7 @@ export async function POST(
     };
     const response = await model?.query(queryOptions);
     const data = response?.data as ResponseData;
-
+    await incrementApiLimitImage();
     await prismadb.image.create({
       data: { clientId: params.clientId, text: text, image_url: data.img_url },
     });
