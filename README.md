@@ -201,3 +201,7 @@ Running commands with npm `npm run [command]`
 I am on the trial plan for Railway so this link might get not work later but during submission it is working. Since the link might not work I have added a youtube demo link below.
 
 ### Youtube Demo Link: [MindsDB Next.js Integration](https://youtu.be/eBdy57ul2oQ)
+
+### Limits:
+
+To prevent the abuse of MindsDB’s free tier, limits have been imposed on the number of generations a user can have. Each user is initially given 1000 tokens, and the number of tokens used is counted based on their usage. For instance, generating an image costs 4 tokens, so after generating one image, a user will have (1000-4) tokens remaining. You can find more information about this in the "api-limit.tsx" file located in the lib folder.
