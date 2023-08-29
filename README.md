@@ -176,7 +176,7 @@ I have followed a similar pattern to create DATABASE and Models as explained abo
 
 Once you have all the values for .env you can start the app and continue experimenting.
 
-I have added a notes.tsx file in the root of the project where I have mentioned about some other commands and prompts I have used to create other models.
+I have added a notes.md file in the root of the project where I have mentioned about some other commands and prompts I have used to create other models.
 
 ### Start the app
 
