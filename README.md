@@ -4,7 +4,7 @@
 
 Prior to participating in the hackathon, I had no experience with MindDB. However, by developing this application, I was able to gain valuable knowledge in creating and managing databases and models using the cloud console, as well as integrating MindsDB with a framework using the “mindsdb-js-sdk”. This project provided me with an opportunity to expand my skill set and explore new technologies.
 
-### This repo is for my submission for the MindsDB AI App Challenge which took place from July 1 - August 31, 2023
+### This repo is for my submission for the MindsDB HackerMinds AI App Challenge which took place from July 1 - August 31, 2023
 
 ## Getting Started
 
@@ -197,6 +197,7 @@ Running commands with npm `npm run [command]`
 "postinstall": "prisma generate" is required if you want to deploy your site.
 
 ### Current Deployed Link: [MindsDB Next.js Integration](https://mindsdb-nextjs-integration.up.railway.app/)
+
 I am on the trial plan for Railway so this link might get not work later but during submission it is working. Since the link might not work I have added a youtube demo link below.
 
 ### Youtube Demo Link: [MindsDB Next.js Integration](https://youtu.be/eBdy57ul2oQ)
