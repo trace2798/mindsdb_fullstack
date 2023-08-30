@@ -1,8 +1,8 @@
-## MindsDB Next.js App Router Integration.
+## [MindsDB](https://mindsdb.com/) Next.js App Router Integration.
 
 ### What motivated me to select this project for submission?
 
-Prior to participating in the hackathon, I had no experience with MindDB. However, by developing this application, I was able to gain valuable knowledge in creating and managing databases and models using the cloud console, as well as integrating MindsDB with a next.js app directory using the “mindsdb-js-sdk”. This project provided me with an opportunity to expand my skill set and explore new technologies.
+Prior to participating in the hackathon, [MindsDB AI App Challenge]9https://mindsdb.com/hackerminds-ai-app-challenge), I had no experience with MindDB. However, by developing this application, I was able to gain valuable knowledge in creating and managing databases and models using the cloud console, as well as integrating MindsDB with a next.js app directory using the “mindsdb-js-sdk”. This project provided me with an opportunity to expand my skill set and explore new technologies.
 I also believe this project will be a good contribution to the opensource community and help other web developers in integrating MindsDB with Next.js. 
 
 ### This repo is for my submission for the MindsDB HackerMinds AI App Challenge which took place from July 1 - August 31, 2023
@@ -15,7 +15,7 @@ I also believe this project will be a good contribution to the opensource commun
 
 **Node version 16.8 or later  
 **macOS, Windows (including WSL), and Linux are supported.
-\*\*Accounts to get the .env values as mentioned below and in the .env.example
+**Accounts to get the .env values as mentioned below and in the .env.example
 
 ### To directly clone the repo
 
