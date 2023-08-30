@@ -2,7 +2,7 @@
 
 ### What motivated me to select this project for submission?
 
-Prior to participating in the hackathon, [MindsDB AI App Challenge](https://mindsdb.com/hackerminds-ai-app-challenge), I had no experience with MindDB. However, by developing this application, I was able to gain valuable knowledge in creating and managing databases and models using the cloud console, as well as integrating MindsDB with a next.js app directory using the “mindsdb-js-sdk”. This project provided me with an opportunity to expand my skill set and explore new technologies.
+Prior to participating in the hackathon, [MindsDB AI App Challenge](https://mindsdb.com/hackerminds-ai-app-challenge), I had no experience with MindDB. However, by developing this application, I was able to gain valuable knowledge in creating and managing databases and models using the cloud console, as well as integrating MindsDB with a next.js app directory using the “[mindsdb-js-sdk](https://www.npmjs.com/package/mindsdb-js-sdk)”. This project provided me with an opportunity to expand my skill set and explore new technologies.
 I also believe this project will be a good contribution to the open-source community and help other web developers integrate MindsDB with Next.js application.
 
 *Note: This application is not a comprehensive representation of all that MindsDB is capable of. MindsDB has immense potential and ability, and this application is based on my current understanding of it (I came across MindsDB around 15 days ago). I plan to continue exploring the vast sea of opportunities and abilities of MindsDB over time.*
