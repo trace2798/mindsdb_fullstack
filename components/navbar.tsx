@@ -2,6 +2,7 @@
 import { ModeToggle } from "@/components/mode-toggle";
 import { cn } from "@/lib/utils";
 import { UserButton } from "@clerk/nextjs";
+import { Github } from "lucide-react";
 import { Poppins } from "next/font/google";
 import Link from "next/link";
 
@@ -29,6 +30,13 @@ export const Navbar = ({}) => {
             <Sparkles className="w-4 h-4 ml-2 text-white fill-white" />
           </Button>
         )} */}
+        <a
+          href="https://github.com/trace2798/mindsdb_fullstack"
+          target="_blank"
+          aria-label="github repo link"
+        >
+          <Github className="text-slate-500 hover:text-slate-900 dark:hover:text-slate-100" />
+        </a>
         <ModeToggle />
         <UserButton afterSignOutUrl="/" />
       </div>
