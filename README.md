@@ -150,7 +150,7 @@ export async function POST(
 
 ```
 
-- From the frontend, after a user submit's his or her request for image, the above API is called and an image is generated
+- From the frontend, after a user submit's his or her or their request for image, the above API is called and an image is generated
 - Here is the code for await connect() which can be found inside lib --> connect-mind.ts
 
 ```
@@ -205,3 +205,15 @@ I am on the trial plan for Railway so this link might get not work later but dur
 ### Limits:
 
 To prevent the abuse of MindsDB’s free tier, limits have been imposed on the number of generations a user can have. Each user is initially given 1000 tokens, and the number of tokens used is counted based on their usage. For instance, generating an image costs 4 tokens, so after generating one image, a user will have (1000-4) tokens remaining. You can find more information about this in the "api-limit.tsx" file located in the lib folder.
+
+### Additional command that can be used in MindsDB cloud console
+
+#### To drop a Database
+```
+DROP DATABASE DATABASE_NAME
+```
+
+#### To drop a Project
+```
+DROP MODEL MODEL_NAME
+```
