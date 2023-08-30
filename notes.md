@@ -8,7 +8,12 @@ CREATE DATABASE images_generation; -->
     engine = 'openai',
     mode = 'image',
     prompt_template = '{{text}}, 8K | ultra realistic image |  natural lighting | natural colors with a bit of saturation'; -->
- <!-- short summary model
+
+<!-- The following are the command I used to create the short summary model using Openai's gpt-4 model  -->
+<!-- First creating the Database -->
+<!-- CREATE DATABASE summarize -->
+<!-- Second creating the Model -->
+ <!-- 
  CREATE MODEL summarize.summarize_gpt_4_short
  PREDICT response
  USING
