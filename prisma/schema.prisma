@@ -23,10 +23,12 @@ model Client {
 }
 
 model Feedback {
-  id       String @id @default(uuid())
-  name     String
-  message  String @db.LongText
-  analysis String
+  id        String   @id @default(uuid())
+  name      String
+  message   String   @db.LongText
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  analysis  String?  @default("null")
 }
 
 model Image {
