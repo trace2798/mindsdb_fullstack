@@ -1,11 +1,11 @@
 "use client";
 
 import {
+  DatabaseZap,
   File,
   Home,
   Image,
-  MessageSquarePlusIcon,
-  Settings,
+  MessageSquarePlusIcon
 } from "lucide-react";
 import { useParams, usePathname, useRouter } from "next/navigation";
 
@@ -18,10 +18,6 @@ export const Sidebar = ({ apiLimitCount = 0 }: { apiLimitCount: number }) => {
   const params = useParams();
 
   const onNavigate = (url: string, pro: boolean) => {
-    // if (pro && !isPro) {
-    //   return proModal.onOpen();
-    // }
-
     return router.push(url);
   };
 
@@ -62,12 +58,12 @@ export const Sidebar = ({ apiLimitCount = 0 }: { apiLimitCount: number }) => {
       label: "Ask Turbo",
       pro: true,
     },
-    // {
-    //   icon: Settings,
-    //   href: `/${params.clientId}/settings`,
-    //   label: "Settings",
-    //   pro: false,
-    // },
+    {
+      icon: DatabaseZap,
+      href: `/${params.clientId}/feedback-analysis`,
+      label: "Feedback Analysis",
+      pro: true,
+    },
   ];
 
   return (

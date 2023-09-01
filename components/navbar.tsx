@@ -24,12 +24,6 @@ export const Navbar = ({}) => {
         </Link>
       </div>
       <div className="flex items-center gap-x-3">
-        {/* {!isPro && (
-          <Button onClick={proModal.onOpen} size="sm" variant="ghost">
-            Upgrade
-            <Sparkles className="w-4 h-4 ml-2 text-white fill-white" />
-          </Button>
-        )} */}
         <a
           href="https://github.com/trace2798/mindsdb_fullstack"
           target="_blank"
