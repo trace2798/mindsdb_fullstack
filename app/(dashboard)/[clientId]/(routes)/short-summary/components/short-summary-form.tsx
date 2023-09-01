@@ -13,6 +13,7 @@ import {
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
@@ -41,9 +42,9 @@ const ShortSummaryForm: FC<pageProps> = ({}) => {
   const [messages, setMessages] = useState<MindsDBResponse[]>([]);
   const isLoading = form.formState.isSubmitting;
   const params = useParams();
+  const { toast } = useToast();
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-   
       const responseBack = await axios.post(
         `/api/${params.clientId}/short-summary`,
         values
@@ -53,8 +54,14 @@ const ShortSummaryForm: FC<pageProps> = ({}) => {
 
       setMessages((messages) => [responseBack.data, ...messages]);
       form.reset();
+      toast({
+        title: "Summarized",
+        description: "Your input has been summarized by gpt-4",
+      });
     } catch (error: any) {
-      // console.log(error);
+      toast({
+        title: "Oops Something went wrong",
+      });
     }
   };
 

@@ -23,7 +23,7 @@ export const Heading = ({
         <div>
           <h2 className="text-3xl font-bold text-primary">{title}</h2>
           <p className="text-sm text-muted-foreground">{description}</p>
-          <p className="text-sm text-muted-foreground">{tokenCountInfo}</p>
+          <p className="text-sm text-indigo-300">{tokenCountInfo}</p>
         </div>
         <Button
           className="mt-5 capitalize w-fit md:mt-0"

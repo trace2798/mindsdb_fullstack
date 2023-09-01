@@ -1,27 +1,16 @@
 "use client";
 
-import * as z from "zod";
 import axios from "axios";
-import { MessageSquare } from "lucide-react";
-import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 // import { toast } from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 // import { ChatCompletionRequestMessage } from "openai";
 
-import { BotAvatar } from "@/components/bot-avatar";
 import { Heading } from "@/components/heading";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { cn } from "@/lib/utils";
 import { Loader } from "@/components/loader";
-import { UserAvatar } from "@/components/user-avatar";
-import { Empty } from "@/components/ui/empty";
-// import { useProModal } from "@/hooks/use-pro-modal";
-
-import { formSchema } from "../constants";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -30,7 +19,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Empty } from "@/components/ui/empty";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { formSchema } from "../constants";
 
 type MindsDBResponse = {
   text: string;
@@ -39,7 +34,7 @@ type MindsDBResponse = {
 
 const ConversationForm = ({}) => {
   const router = useRouter();
-  //   const proModal = useProModal();
+  const { toast } = useToast();
   const [messages, setMessages] = useState<MindsDBResponse[]>([]);
   const params = useParams();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -52,18 +47,23 @@ const ConversationForm = ({}) => {
   const isLoading = form.formState.isSubmitting;
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-  
       const responseBack = await axios.post(
         `/api/${params.clientId}/conversation`,
         values
       );
-      
+
       const response = responseBack.data;
-      
+
       setMessages((messages) => [...messages, responseBack.data]);
       form.reset();
+      toast({
+        title: "Answer Generated",
+        description: "Answer for your question has been generated",
+      });
     } catch (error: any) {
-      // console.log(error);
+      toast({
+        title: "Oops Something went wrong",
+      });
     }
   };
 
@@ -72,6 +72,8 @@ const ConversationForm = ({}) => {
       <Heading
         title="Ask"
         description="Ask a question."
+        buttonTitle="Check past generations"
+        tokenCountInfo="Each request is counted as 4 token"
       />
       <div className="px-4 lg:px-8">
         <div>

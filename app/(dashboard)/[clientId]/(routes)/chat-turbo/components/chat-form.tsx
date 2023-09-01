@@ -31,6 +31,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
 
 type MindsDBResponse = {
   text: string;
@@ -38,6 +39,7 @@ type MindsDBResponse = {
 };
 
 const ConversationForm = ({}) => {
+  const { toast } = useToast();
   const router = useRouter();
   //   const proModal = useProModal();
   const [messages, setMessages] = useState<MindsDBResponse[]>([]);
@@ -52,7 +54,6 @@ const ConversationForm = ({}) => {
   const isLoading = form.formState.isSubmitting;
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-  
       const responseBack = await axios.post(
         `/api/${params.clientId}/conversation-turbo`,
         values
@@ -62,44 +63,24 @@ const ConversationForm = ({}) => {
 
       setMessages((messages) => [...messages, responseBack.data]);
       form.reset();
+      toast({
+        title: "Answer Generated",
+        description: "Answer for your question has been generated",
+      });
     } catch (error: any) {
-      // console.log(error);
+      toast({
+        title: "Oops Something went wrong",
+      });
     }
   };
-
-  //   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-  //     try {
-  //       const userMessage: MindsDBResponse = {
-  //         text: values.text,
-  //         response: values.text,
-  //       };
-  //       const newMessages = [...messages, userMessage];
-
-  //       const responseBack = await axios.post(
-  //         `/api/${params.clientId}/conversation`,
-  //         {
-  //           messages: newMessages,
-  //         }
-  //       );
-  //       const response = responseBack.data;
-  //       setMessages((current) => [...current, userMessage, response.data]);
-
-  //     } catch (error: any) {
-  //       if (error?.response?.status === 403) {
-  //         // proModal.onOpen();
-  //       } else {
-  //         // toast.error("Something went wrong.");
-  //       }
-  //     } finally {
-  //       router.refresh();
-  //     }
-  //   };
 
   return (
     <div>
       <Heading
         title="Ask Turbo"
         description="Ask a question."
+        buttonTitle="Check past generations"
+        tokenCountInfo="Each request is counted as 2 token"
       />
       <div className="px-4 lg:px-8">
         <div>

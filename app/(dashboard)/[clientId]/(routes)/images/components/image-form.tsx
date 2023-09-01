@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { Download } from "lucide-react";
@@ -43,6 +44,7 @@ const ImageForm = ({}) => {
   const isLoading = form.formState.isSubmitting;
 
   const params = useParams();
+  const { toast } = useToast();
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
@@ -50,13 +52,17 @@ const ImageForm = ({}) => {
         `/api/${params.clientId}/image`,
         values
       );
-
       const img_url = response.data;
-
       setPhotos((photos) => [response.data, ...photos]);
       form.reset();
+      toast({
+        title: "Image Generated",
+        description: "Image based on your input has been generated",
+      });
     } catch (error: any) {
-      // console.log(error);
+      toast({
+        title: "Oops Something went wrong",
+      });
     }
   };
 
@@ -68,6 +74,7 @@ const ImageForm = ({}) => {
             title="Generate Image"
             description="Provide a input to generate image. For best result try to be as descriptive as possible."
             buttonTitle="Check past generations"
+            tokenCountInfo="Each request is counted as 4 token"
           />
         </div>
 
