@@ -1,6 +1,6 @@
 "use client";
 
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -60,10 +60,21 @@ const ConversationForm = ({}) => {
         title: "Answer Generated",
         description: "Answer for your question has been generated",
       });
-    } catch (error: any) {
-      toast({
-        title: "Oops Something went wrong",
-      });
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error.response?.status === 403) {
+          return toast({
+            title: "You are out of token.",
+            variant: "destructive",
+          });
+        }
+      } else {
+        console.error(error);
+        toast({
+          title: "Oops something went wrong",
+          variant: "destructive",
+        });
+      }
     }
   };
 

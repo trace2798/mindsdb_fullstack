@@ -14,7 +14,7 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Download } from "lucide-react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
@@ -61,10 +61,21 @@ const ImageForm = ({}) => {
         title: "Image Generated",
         description: "Image based on your input has been generated",
       });
-    } catch (error: any) {
-      toast({
-        title: "Oops Something went wrong",
-      });
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error.response?.status === 403) {
+          return toast({
+            title: "You are out of token.",
+            variant: "destructive",
+          });
+        }
+      } else {
+        console.error(error);
+        toast({
+          title: "Oops something went wrong",
+          variant: "destructive",
+        });
+      }
     }
   };
 

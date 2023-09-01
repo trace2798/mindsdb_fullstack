@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useParams, useRouter } from "next/navigation";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -60,10 +60,21 @@ const NormalSummaryForm: FC<pageProps> = ({}) => {
         title: "Summarized",
         description: "Your input has been summarized by gpt-3.5-turbo",
       });
-    } catch (error: any) {
-      toast({
-        title: "Oops Something went wrong",
-      });
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error.response?.status === 403) {
+          return toast({
+            title: "You are out of token.",
+            variant: "destructive",
+          });
+        }
+      } else {
+        console.error(error);
+        toast({
+          title: "Oops something went wrong",
+          variant: "destructive",
+        });
+      }
     }
   };
 

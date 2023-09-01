@@ -1,27 +1,19 @@
 "use client";
 
-import * as z from "zod";
-import axios from "axios";
-import { MessageSquare } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
-// import { toast } from "react-hot-toast";
+import axios, { AxiosError } from "axios";
 import { useParams, useRouter } from "next/navigation";
-// import { ChatCompletionRequestMessage } from "openai";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
-import { BotAvatar } from "@/components/bot-avatar";
 import { Heading } from "@/components/heading";
+import { Loader } from "@/components/loader";
 import { Button } from "@/components/ui/button";
+import { Empty } from "@/components/ui/empty";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { cn } from "@/lib/utils";
-import { Loader } from "@/components/loader";
-import { UserAvatar } from "@/components/user-avatar";
-import { Empty } from "@/components/ui/empty";
-// import { useProModal } from "@/hooks/use-pro-modal";
 
-import { formSchema } from "../constants";
 import {
   Card,
   CardContent,
@@ -32,6 +24,7 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
+import { formSchema } from "../constants";
 
 type MindsDBResponse = {
   text: string;
@@ -41,7 +34,6 @@ type MindsDBResponse = {
 const ConversationForm = ({}) => {
   const { toast } = useToast();
   const router = useRouter();
-  //   const proModal = useProModal();
   const [messages, setMessages] = useState<MindsDBResponse[]>([]);
   const params = useParams();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -63,17 +55,28 @@ const ConversationForm = ({}) => {
 
       setMessages((messages) => [...messages, responseBack.data]);
       form.reset();
+      router.refresh();
       toast({
         title: "Answer Generated",
         description: "Answer for your question has been generated",
       });
-    } catch (error: any) {
-      toast({
-        title: "Oops Something went wrong",
-      });
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error.response?.status === 403) {
+          return toast({
+            title: "You are out of token.",
+            variant: "destructive",
+          });
+        }
+      } else {
+        console.error(error);
+        toast({
+          title: "Oops something went wrong",
+          variant: "destructive",
+        });
+      }
     }
   };
-
   return (
     <div>
       <Heading
