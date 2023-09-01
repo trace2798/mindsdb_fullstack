@@ -43,6 +43,7 @@ const ShortSummaryForm: FC<pageProps> = ({}) => {
   const isLoading = form.formState.isSubmitting;
   const params = useParams();
   const { toast } = useToast();
+  const router = useRouter();
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const responseBack = await axios.post(
@@ -54,6 +55,7 @@ const ShortSummaryForm: FC<pageProps> = ({}) => {
 
       setMessages((messages) => [responseBack.data, ...messages]);
       form.reset();
+      router.refresh();
       toast({
         title: "Summarized",
         description: "Your input has been summarized by gpt-4",

@@ -17,7 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { Download } from "lucide-react";
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -45,6 +45,7 @@ const ImageForm = ({}) => {
 
   const params = useParams();
   const { toast } = useToast();
+  const router = useRouter();
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
@@ -55,6 +56,7 @@ const ImageForm = ({}) => {
       const img_url = response.data;
       setPhotos((photos) => [response.data, ...photos]);
       form.reset();
+      router.refresh();
       toast({
         title: "Image Generated",
         description: "Image based on your input has been generated",
@@ -120,10 +122,10 @@ const ImageForm = ({}) => {
           {photos.map((url, index) => (
             <>
               <div key={index} className="flex flex-row">
-                <Card className="overflow-hidden rounded-lg ">
+                <Card className="overflow-hidden rounded-lg">
                   <CardHeader>
                     <CardTitle>Text</CardTitle>
-                    <CardDescription className="capitalize">
+                    <CardDescription className="max-w-lg capitalize">
                       {url.text}
                     </CardDescription>
                   </CardHeader>

@@ -16,7 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -43,6 +43,7 @@ const NormalSummaryForm: FC<pageProps> = ({}) => {
   const isLoading = form.formState.isSubmitting;
   const params = useParams();
   const { toast } = useToast();
+  const router = useRouter();
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const responseBack = await axios.post(
@@ -54,6 +55,7 @@ const NormalSummaryForm: FC<pageProps> = ({}) => {
 
       setMessages((messages) => [responseBack.data, ...messages]);
       form.reset();
+      router.refresh();
       toast({
         title: "Summarized",
         description: "Your input has been summarized by gpt-3.5-turbo",
