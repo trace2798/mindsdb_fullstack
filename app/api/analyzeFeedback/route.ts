@@ -84,7 +84,7 @@ export async function GET(req: Request) {
         });
       })
     );
-    return NextResponse.json("DONE");
+    return NextResponse.json(`${toAnalyze.length} Feedback Analyzed`);
   } catch (error) {
     return new NextResponse("Internal error", { status: 500 });
   }
