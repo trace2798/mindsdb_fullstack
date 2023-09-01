@@ -1,8 +1,3 @@
-import { FC } from "react";
-import ImageForm from "./components/image-form";
-import prismadb from "@/lib/prismadb";
-import { Separator } from "@/components/ui/separator";
-import { Empty } from "@/components/ui/empty";
 import {
   Card,
   CardContent,
@@ -10,9 +5,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Empty } from "@/components/ui/empty";
 import { Label } from "@/components/ui/label";
-import Image from "next/image";
+import { Separator } from "@/components/ui/separator";
+import prismadb from "@/lib/prismadb";
 import { randomUUID } from "crypto";
+import Image from "next/image";
+import ImageForm from "./components/image-form";
 
 interface ImagePage {}
 
