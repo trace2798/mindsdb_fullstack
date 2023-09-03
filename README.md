@@ -203,7 +203,7 @@ Running commands with npm `npm run [command]`
 
 I am on the trial plan for Railway so this link might get not work later but during submission it is working. Since the link might not work I have added a youtube demo link below.
 
-### Youtube Demo Link: [MindsDB Next.js Integration](https://youtu.be/eBdy57ul2oQ)
+### Youtube Demo Link: [MindsDB Next.js Integration](https://youtu.be/iecROCk6I0k)
 
 ### Limits:
 
