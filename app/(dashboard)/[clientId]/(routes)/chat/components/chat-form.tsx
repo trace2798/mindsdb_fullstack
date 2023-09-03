@@ -1,13 +1,5 @@
 "use client";
 
-import axios, { AxiosError } from "axios";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-// import { toast } from "react-hot-toast";
-import { useParams, useRouter } from "next/navigation";
-// import { ChatCompletionRequestMessage } from "openai";
-
 import { Heading } from "@/components/heading";
 import { Loader } from "@/components/loader";
 import { Button } from "@/components/ui/button";
@@ -25,6 +17,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios, { AxiosError } from "axios";
+import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 import { formSchema } from "../constants";
 
 type MindsDBResponse = {
@@ -102,7 +99,7 @@ const ConversationForm = ({}) => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading}
-                        placeholder="How do I calculate the radius of a circle?"
+                        placeholder="Why are flamingos pink?"
                         {...field}
                       />
                     </FormControl>
@@ -127,7 +124,7 @@ const ConversationForm = ({}) => {
             </div>
           )}
           {messages.length === 0 && !isLoading && (
-            <Empty label="No conversation started." />
+            <Empty label="Ask a question to get started." />
           )}
           <div className="flex flex-col-reverse gap-y-4">
             {messages.map((message, index) => (

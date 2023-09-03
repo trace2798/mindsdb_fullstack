@@ -49,7 +49,6 @@ export async function POST(
     });
     return NextResponse.json(response?.data);
   } catch (error) {
-    // console.log("[SUMMARIZATION_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

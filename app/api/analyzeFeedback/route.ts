@@ -32,7 +32,7 @@ export async function GET(req: Request) {
         const response = await model?.query(queryOptions);
         const data = response?.data as ResponseData;
 
-        // Update the analysis property for the feedback
+        
         await prismadb.feedback.update({
           where: { id: item.id },
           data: { analysis: data.sentiment },

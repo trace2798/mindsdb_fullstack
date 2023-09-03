@@ -1,26 +1,24 @@
 "use client";
 
-import * as z from "zod";
-import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import { useForm } from "react-hook-form";
-// import { toast } from "react-hot-toast";
+import * as z from "zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { Modal } from "@/components/ui/modal";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Modal } from "@/components/ui/modal";
 import { useClientModal } from "@/hooks/use-client-modal";
-import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -45,7 +43,7 @@ export const ClientModal = () => {
       const response = await axios.post("/api/client", values);
       window.location.assign(`/${response.data.id}`);
     } catch (error) {
-      //   toast.error('Something went wrong');
+    
     } finally {
       setLoading(false);
     }

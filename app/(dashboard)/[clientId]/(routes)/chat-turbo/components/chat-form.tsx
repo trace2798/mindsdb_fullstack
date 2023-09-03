@@ -100,7 +100,7 @@ const ConversationForm = ({}) => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading}
-                        placeholder="How do I calculate the radius of a circle?"
+                        placeholder="Why is the sky blue?"
                         {...field}
                       />
                     </FormControl>
@@ -125,7 +125,7 @@ const ConversationForm = ({}) => {
             </div>
           )}
           {messages.length === 0 && !isLoading && (
-            <Empty label="No conversation started." />
+            <Empty label="Ask a question to get started." />
           )}
           <div className="flex flex-col-reverse gap-y-4">
             {messages.map((message, index) => (
