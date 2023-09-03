@@ -56,6 +56,7 @@ const ConversationForm = ({}) => {
 
       setMessages((messages) => [...messages, responseBack.data]);
       form.reset();
+      router.refresh();
       toast({
         title: "Answer Generated",
         description: "Answer for your question has been generated",
